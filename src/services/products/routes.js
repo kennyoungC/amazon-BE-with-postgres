@@ -4,6 +4,7 @@ import productsHandler from "./handlers.js"
 const productsRouter = Router()
 
 productsRouter.get("/", productsHandler.getAll)
-productsRouter.get("/:productId", productsHandler.getById)
+productsRouter.post("/", productsHandler.createNewProduct)
+productsRouter.route("/:productId").get(productsHandler.getById)
 
 export default productsRouter

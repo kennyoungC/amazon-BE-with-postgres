@@ -4,6 +4,13 @@ import listEndpoints from "express-list-endpoints"
 import createDefaultTables from "./db/create-tables.js"
 import productsRouter from "./services/products/routes.js"
 import reviewsRouter from "./services/reviews/routes.js"
+import {
+  badRequestErrorHandler,
+  genericErrorHandler,
+  notFoundErrorHandler,
+  unauthorizedErrorHandler,
+} from "./errorHandlers.js"
+import createHttpError from "http-errors"
 
 const server = express()
 
@@ -15,6 +22,12 @@ server.use(express.json())
 // ******ENDPOINTS ********
 server.use("/products", productsRouter)
 server.use("/products", reviewsRouter)
+
+// *********** Middleware Error Handlers ***********
+server.use(badRequestErrorHandler) // 400
+server.use(unauthorizedErrorHandler) // 401
+server.use(notFoundErrorHandler) // 404
+server.use(genericErrorHandler) // 500
 
 server.listen(PORT, async () => {
   console.table(listEndpoints(server))

@@ -11,8 +11,7 @@ const createDefaultTables = async () => {
     // Convert buffer to string
     const tablesSQLQuery = buffer.toString()
     // execute query
-    const result = await pool.query(tablesSQLQuery)
-    console.log("these are the rows", result.rows)
+    await pool.query(tablesSQLQuery)
     console.log("✅ Default tables are created")
   } catch (error) {
     console.log(error)
