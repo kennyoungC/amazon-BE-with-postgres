@@ -1,0 +1,1 @@
+INSERT INTO products (name, brand, price, description, category, image_url) VALUES ('Product 1', 'Brand 1', 100, 'Description 1', 'Category 1', 'http://image.com/1');
