@@ -9,6 +9,7 @@ const getAll = async (req, res, next) => {
     res.status(400).send(error.message)
   }
 }
+
 const getById = async (req, res, next) => {
   try {
     const { rows } = await pool.query("SELECT * FROM products WHERE id= $1", [
@@ -28,6 +29,7 @@ const getById = async (req, res, next) => {
     res.status(400).send(error.message)
   }
 }
+
 const createNewProduct = async (req, res, next) => {
   const {
     brand,
@@ -44,11 +46,13 @@ const createNewProduct = async (req, res, next) => {
     const { rows } = await pool.query(text, values)
     res.send(rows[0])
   } catch (error) {
-    next(createHttpError(404, error.message))
+    next(createHttpError(400, error.message))
   }
 }
+
 const updateProductsById = async (req, res, next) => {
   try {
+    // const {} = req.body
     const {
       brand,
       name,
@@ -57,8 +61,7 @@ const updateProductsById = async (req, res, next) => {
       category,
       description,
     } = req.body
-    const text =
-      "UPDATE products SET brand=$1, name=$2, image_url=$3, price=$4, category=$5, description=$6 WHERE id=$7 RETURNING *"
+    const text = `UPDATE products SET brand=$1, name=$2, image_url=$3, price=$4, category=$5, description=$6 WHERE id=$7 RETURNING *`
     const values = [
       brand,
       name,
@@ -71,18 +74,17 @@ const updateProductsById = async (req, res, next) => {
     const { rows } = await pool.query(text, values)
     res.send(rows[0])
   } catch (error) {
-    next(createHttpError(404, error.message))
+    next(createHttpError(400, error.message))
   }
 }
 
 const deleteProductById = async (req, res, next) => {
   try {
-    const text =
-      "DELETE FROM products WHERE id=$1"
+    const text = "DELETE FROM products WHERE id=$1"
     await pool.query(text, [req.params.productId])
     res.status(204).send()
   } catch (error) {
-    next(createHttpError(404, error.message))
+    next(createHttpError(400, error.message))
   }
 }
 
