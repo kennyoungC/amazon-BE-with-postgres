@@ -10,7 +10,6 @@ import {
   notFoundErrorHandler,
   unauthorizedErrorHandler,
 } from "./errorHandlers.js"
-import createHttpError from "http-errors"
 
 const server = express()
 
