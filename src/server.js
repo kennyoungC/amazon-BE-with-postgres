@@ -28,9 +28,9 @@ server.use(unauthorizedErrorHandler) // 401
 server.use(notFoundErrorHandler) // 404
 server.use(genericErrorHandler) // 500
 
-server.listen(PORT, async () => {
+server.listen(3001, async () => {
   console.table(listEndpoints(server))
-  console.log(`Server is listening on port ${PORT}!`)
+  console.log(`Server is listening on port ${3001}!`)
   await createDefaultTables()
 })
 
